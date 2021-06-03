@@ -1,4 +1,4 @@
-CREATE TABLE `boilerplate_module` (
+CREATE TABLE IF NOT EXISTS `boilerplate_module` (
     `ID` BIGINT(20) NOT NULL AUTO_INCREMENT,
     `TITLE` TEXT NOT NULL,
     `SORT` INT(11) DEFAULT 500,

@@ -35,7 +35,8 @@ class boilerplate_module_orm extends CModule
         /**
          * Install Database
          */
-        $DB->RunSQLBatch(__DIR__ . '/install/db/install.sql');
+        $sqlErrors = $DB->RunSQLBatch(__DIR__ . '/db/install.sql');
+        if ($sqlErrors) throw new Error(implode(", <br>\n", $sqlErrors));
 
         /**
          * Install Events
@@ -55,7 +56,7 @@ class boilerplate_module_orm extends CModule
         /**
          * Uninstall Database
          */
-        $DB->RunSQLBatch(__DIR__ . '/install/db/uninstall.sql');
+        $DB->RunSQLBatch(__DIR__ . '/db/uninstall.sql');
 
         /**
          * Uninstall Events
