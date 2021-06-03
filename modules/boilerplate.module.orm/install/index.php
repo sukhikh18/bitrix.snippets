@@ -1,6 +1,8 @@
 <?php
 
+use Bitrix\Main;
 use Bitrix\Main\ModuleManager;
+use Boilerplate\Module\ORM\DataTable;
 
 IncludeModuleLangFile(__FILE__);
 
@@ -26,17 +28,23 @@ class boilerplate_module_orm extends CModule
 
     function DoInstall()
     {
-        global $APPLICATION, $DB;
+        // Required before module register.
+        require_once __DIR__ . '/../lib/datatable.php';
 
         if (!CheckVersion(ModuleManager::getVersion('main'), '14.00.00')) {
-            $APPLICATION->ThrowException('Версия главного модуля ниже 14. Не поддерживается технология D7, необходимая модулю. Пожалуйста обновите систему.');
+            Main\Application::getInstance()->ThrowException('Версия главного модуля ниже 14. Не поддерживается технология D7, необходимая модулю. Пожалуйста обновите систему.');
         }
 
         /**
          * Install Database
+         *
+         * @var Main\Data\Connection|Main\DB\Connection $conn
          */
-        $sqlErrors = $DB->RunSQLBatch(__DIR__ . '/db/install.sql');
-        if ($sqlErrors) throw new Error(implode(", <br>\n", $sqlErrors));
+        $conn = Main\Application::getConnection();
+
+        if (!$conn->isTableExists(DataTable::getTableName())) {
+            Main\Entity\Base::getInstance(DataTable::class)->createDBTable();
+        }
 
         /**
          * Install Events
@@ -51,12 +59,12 @@ class boilerplate_module_orm extends CModule
 
     function DoUninstall()
     {
-        global $DB;
+        Main\Loader::includeModule($this->MODULE_ID);
 
         /**
          * Uninstall Database
          */
-        $DB->RunSQLBatch(__DIR__ . '/db/uninstall.sql');
+        Main\Application::getConnection()->dropTable(DataTable::getTableName());
 
         /**
          * Uninstall Events

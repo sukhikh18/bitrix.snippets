@@ -2,17 +2,20 @@
 
 namespace Boilerplate\Module\ORM;
 
+use Bitrix\Main;
 use Bitrix\Main\Entity;
 
 /**
- * Class Boilerplate\DataTable
+ * Class Boilerplate\Module\ORM\DataTable
  *
  * Fields:
  * <ul>
  * <li> ID int
+ * <li> ACTIVE bool
+ * <li> CODE string
  * <li> TITLE string
  * <li> SORT int optional default 500
- * <li> UPDATED datetime default 'CURRENT_TIMESTAMP'
+ * <li> DATE_UPDATE datetime default 'CURRENT_TIMESTAMP'
  * </ul>
  **/
 
@@ -36,25 +39,37 @@ class DataTable extends Entity\DataManager
 	public static function getMap()
 	{
 		return [
-            'ID' => [
-                'data_type' => 'integer',
+            'ID' => new Entity\IntegerField('ID', array(
                 'primary' => true,
                 'autocomplete' => true,
-                'title' => 'ID',
-            ],
-            'TITLE' => [
-                'data_type' => 'text',
-                'required' => true,
+            )),
+            'ACTIVE' => new Main\Entity\BooleanField('ACTIVE', array(
+                'default_value' => 'Y',
+                'values'        => array('N', 'Y'),
+                'title'         => 'Активность',
+            )),
+            'CODE' => new Entity\StringField('CODE', array(
+                'title' => 'Код',
+                'validation' => function() {
+                    return array(
+                        new Main\Entity\Validator\Length(null, 50),
+                        new Main\Entity\Validator\RegExp('/^[A-Za-zА-Яа-я0-9-._]+$/'),
+                        new Main\Entity\Validator\Unique,
+                    );
+                },
+            )),
+            'TITLE' => new Entity\StringField('TITLE', array(
                 'title' => 'Заголовок',
-            ],
-            'SORT' => [
-                'data_type' => 'integer',
+                'required' => true,
+            )),
+            'SORT' => new Entity\IntegerField('SORT', array(
                 'title' => 'Сортировка',
-            ],
-            'UPDATED' => [
-                'data_type' => 'datetime',
+                'default_value' => 500,
+            )),
+            'DATE_UPDATE' => new Entity\DateTimeField('DATE_UPDATE', array(
                 'title' => 'Дата изменения',
-            ],
+                'default_value' => new Main\Type\DateTime,
+            )),
         ];
 	}
 }
