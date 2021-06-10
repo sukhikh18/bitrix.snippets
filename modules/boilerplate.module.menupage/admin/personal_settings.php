@@ -4,32 +4,27 @@ use Bitrix\Main\Config\Option;
 
 $APPLICATION->SetTitle('Настройки сайта');
 
+$moduleId = GetModuleID(__DIR__);
+
 $arMessages = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $_POST["save"] !== '' && check_bitrix_sessid())
 {
     // Do action
-    Option::set('boilerplate.module.menupage', 'SITE_NAME', $_POST['SITE_NAME']);
+    Option::set($moduleId, 'SITE_NAME', $_POST['SITE_NAME']);
 
     $arMessages[] = ['MESSAGE' => 'Настройки обновлены', 'TYPE' => 'OK'];
 }
 
-$aTabs = [
-    [
-        "DIV" => "main",
-        "TAB" => 'Настройки',
-        "ICON" => "main_user_edit",
-        "TITLE" => 'Настройки',
-    ]
-];
-
-$tabControl = new CAdminTabControl("tabControl", $aTabs, true, true);
+$tabControl = new CAdminTabControl("tabControl", [[
+    "DIV" => "main",
+    "TAB" => 'Настройки',
+    "ICON" => "main_user_edit",
+    "TITLE" => 'Настройки',
+]], true, true);
 
 require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_admin_after.php');
 
-foreach($arMessages as $message) {
-    CAdminMessage::ShowMessage($message);
-}
 ?>
 <form method="POST" action="?action=save&lang=<? echo LANGUAGE_ID ?>&<?= $tabControl->ActiveTabParam() ?>"
       enctype="multipart/form-data" name="editform">
@@ -41,7 +36,7 @@ foreach($arMessages as $message) {
     ?>
     <tr>
         <td class="adm-detail-content-cell-l">Название веб-сайта:</td>
-        <td class="adm-detail-content-cell-r"><input type="text" name="SITE_NAME" size="30" value="<?= Option::get('boilerplate.module.menupage', 'SITE_NAME') ?>"></td>
+        <td class="adm-detail-content-cell-r"><input type="text" name="SITE_NAME" size="30" value="<?= Option::get($moduleId, 'SITE_NAME') ?>"></td>
     </tr>
     <?php
     $tabControl->EndTab();

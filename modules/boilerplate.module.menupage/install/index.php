@@ -2,24 +2,23 @@
 
 use Bitrix\Main\ModuleManager;
 
-IncludeModuleLangFile(__FILE__);
-
 if (class_exists('boilerplate_module_menupage')) {
     return;
 }
 
 class boilerplate_module_menupage extends CModule
 {
-    const MODULE_ID = 'boilerplate.module.menupage';
-    const ADMIN_PAGE_NAME = 'settings.php';
+    const ADMIN_PAGE_NAME = 'personal_settings.php';
 
     public function __construct()
     {
-        $arModuleVersion = [];
+        IncludeModuleLangFile(__FILE__);
+
+        $arModuleVersion = ['VERSION' => '', 'VERSION_DATE' => ''];
         include __DIR__ . '/version.php';
-        $this->MODULE_ID = self::MODULE_ID;
-        $this->MODULE_VERSION = $arModuleVersion['VERSION'] ?? '';
-        $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'] ?? '';
+        $this->MODULE_ID = GetModuleID(__DIR__);
+        $this->MODULE_VERSION = $arModuleVersion['VERSION'];
+        $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
         $this->MODULE_NAME = 'Пример модуля';
         $this->MODULE_DESCRIPTION = 'Тестовый модуль для разработчиков, можно использовать как основу для разработки новых модулей для 1С:Битрикс';
         $this->PARTNER_NAME = '';
@@ -27,60 +26,69 @@ class boilerplate_module_menupage extends CModule
     }
 
     /**
-     * Get application folder.
+     * Get module holder folder name.
      * @return string /document/local (when exists) or /document/bitrix
      */
     public static function getRoot()
     {
         $local = $_SERVER['DOCUMENT_ROOT'] . '/local';
-        if (1 === preg_match('#local[\\\/]modules#', __DIR__) && is_dir($local)) {
+        if (false !== strpos(__DIR__, 'local' . DIRECTORY_SEPARATOR . 'modules') && is_dir($local)) {
             return $local;
         }
+    }
 
-        return $_SERVER['DOCUMENT_ROOT'] . BX_ROOT;
+    function InstallDB()
+    {
+    }
+
+    function InstallEvents()
+    {
+    }
+
+    function InstallFiles()
+    {
+        $fileDestination = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/admin/' . self::ADMIN_PAGE_NAME;
+
+        if (!file_exists($fileDestination)) {
+            $content = file_get_contents(__DIR__ . '/admin/' . self::ADMIN_PAGE_NAME);
+            file_put_contents($fileDestination, str_replace('#MODULE_ID#', $this->MODULE_ID, $content));
+        }
     }
 
     function DoInstall()
     {
-        global $APPLICATION, $DB;
+        global $APPLICATION;
 
         if (!CheckVersion(ModuleManager::getVersion('main'), '14.00.00')) {
             $APPLICATION->ThrowException('Версия главного модуля ниже 14. Не поддерживается технология D7, необходимая модулю. Пожалуйста обновите систему.');
         }
 
-        /**
-         * Install Database
-         */
+        $this->InstallDB();
+        $this->InstallEvents();
+        $this->InstallFiles();
 
-        /**
-         * Install Events
-         */
+        ModuleManager::RegisterModule($this->MODULE_ID);
+    }
 
-        /**
-         * Install Files
-         */
-        CopyDirFiles(__DIR__ . '/admin', $_SERVER["DOCUMENT_ROOT"] . '/bitrix/admin');
+    function UnInstallDB()
+    {
+    }
 
-        ModuleManager::RegisterModule(self::MODULE_ID);
+    function UnInstallEvents()
+    {
+    }
+
+    function UnInstallFiles()
+    {
+        DeleteDirFilesEx('/bitrix/admin/' . self::ADMIN_PAGE_NAME);
     }
 
     function DoUninstall()
     {
-        global $DB;
+        $this->UnInstallDB();
+        $this->UnInstallEvents();
+        $this->UnInstallFiles();
 
-        /**
-         * Uninstall Database
-         */
-
-        /**
-         * Uninstall Events
-         */
-
-        /**
-         * Uninstall Files
-         */
-        DeleteDirFilesEx('/bitrix/admin/' . self::ADMIN_PAGE_NAME);
-
-        UnRegisterModule(self::MODULE_ID);
+        UnRegisterModule($this->MODULE_ID);
     }
 }

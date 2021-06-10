@@ -1,5 +1,6 @@
 <?php
-\Bitrix\Main\Loader::includeModule(basename(__DIR__, 'admin'));
+
+\Bitrix\Main\Loader::includeModule(GetModuleID(__DIR__));
 
 $globalMenu = [
     'Контент' => 'global_menu_content',
@@ -17,5 +18,5 @@ return [
     "text" => 'Настройки сайта',
     "title" => 'Настройки сайта',
     "url" => boilerplate_module_menupage::ADMIN_PAGE_NAME,
-    "items_id" => "site_settings",
+    "items_id" => "personal_settings",
 ];

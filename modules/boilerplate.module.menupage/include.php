@@ -2,6 +2,8 @@
 
 use Bitrix\Main\Loader;
 
-Loader::registerAutoLoadClasses(basename(__DIR__), [
-    'boilerplate_module_menupage' => 'install/index.php',
+$moduleId = basename(__DIR__);
+
+Loader::registerAutoLoadClasses($moduleId, [
+    str_replace('.', '_', $moduleId) => 'install/index.php',
 ]);
