@@ -71,7 +71,7 @@ class boilerplate_module_event extends CModule
         $this->UnInstallEvents();
         $this->UnInstallFiles();
 
-        UnRegisterModule($this->MODULE_ID);
+        Main\ModuleManager::UnRegisterModule($this->MODULE_ID);
     }
 
     /**

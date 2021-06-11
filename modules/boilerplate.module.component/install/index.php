@@ -44,6 +44,7 @@ class boilerplate_module_component extends CModule
 
     function InstallFiles()
     {
+        CopyDirFiles(__DIR__ . '/components', static::getRoot() . '/components', true, true);
     }
 
     function DoInstall()
