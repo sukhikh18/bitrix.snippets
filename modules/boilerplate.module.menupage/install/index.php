@@ -1,14 +1,14 @@
 <?php
 
 use Bitrix\Main;
-use Boilerplate\Module\ORM\DataTable;
 
-if (class_exists('boilerplate_module_orm')) {
+if (class_exists('boilerplate_module_menupage')) {
     return;
 }
 
-class boilerplate_module_orm extends CModule
+class boilerplate_module_menupage extends CModule
 {
+    const ADMIN_PAGE_NAME = 'personal_settings.php';
 
     public function __construct()
     {
@@ -27,15 +27,6 @@ class boilerplate_module_orm extends CModule
 
     function InstallDB()
     {
-        // Required before module register.
-        require_once __DIR__ . '/../lib/datatable.php';
-
-        /** @var Main\Data\Connection|Main\DB\Connection $conn */
-        $conn = Main\Application::getConnection();
-
-        if (!$conn->isTableExists(DataTable::getTableName())) {
-            Main\Entity\Base::getInstance(DataTable::class)->createDBTable();
-        }
     }
 
     function InstallEvents()
@@ -44,6 +35,12 @@ class boilerplate_module_orm extends CModule
 
     function InstallFiles()
     {
+        $fileDestination = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/admin/' . self::ADMIN_PAGE_NAME;
+
+        if (!file_exists($fileDestination)) {
+            $content = file_get_contents(__DIR__ . '/admin/' . self::ADMIN_PAGE_NAME);
+            file_put_contents($fileDestination, str_replace('#MODULE_ID#', $this->MODULE_ID, $content));
+        }
     }
 
     function DoInstall()
@@ -61,7 +58,6 @@ class boilerplate_module_orm extends CModule
 
     function UnInstallDB()
     {
-        Main\Application::getConnection()->dropTable(DataTable::getTableName());
     }
 
     function UnInstallEvents()
@@ -70,6 +66,7 @@ class boilerplate_module_orm extends CModule
 
     function UnInstallFiles()
     {
+        DeleteDirFilesEx('/bitrix/admin/' . self::ADMIN_PAGE_NAME);
     }
 
     function DoUninstall()
