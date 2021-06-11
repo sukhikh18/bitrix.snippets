@@ -6,7 +6,7 @@ if (class_exists('boilerplate_module')) {
     return;
 }
 
-class boilerplate_module extends CModule
+class boilerplate_module_rest extends CModule
 {
 
     public function __construct()
@@ -30,6 +30,14 @@ class boilerplate_module extends CModule
 
     function InstallEvents()
     {
+        $obEventManager = Main\EventManager::getInstance();
+        $obEventManager->registerEventHandler(
+            'rest',
+            'OnRestServiceBuildDescription',
+            $this->MODULE_ID,
+            Service::class,
+            'getDescription'
+        );
     }
 
     function InstallFiles()
@@ -55,6 +63,14 @@ class boilerplate_module extends CModule
 
     function UnInstallEvents()
     {
+        $obEventManager = Main\EventManager::getInstance();
+        $obEventManager->unRegisterEventHandler(
+            'rest',
+            'OnRestServiceBuildDescription',
+            $this->MODULE_ID,
+            Service::class,
+            'getDescription'
+        );
     }
 
     function UnInstallFiles()
