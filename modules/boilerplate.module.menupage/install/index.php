@@ -1,6 +1,6 @@
 <?php
 
-use Bitrix\Main\ModuleManager;
+use Bitrix\Main;
 
 if (class_exists('boilerplate_module_menupage')) {
     return;
@@ -25,18 +25,6 @@ class boilerplate_module_menupage extends CModule
         $this->PARTNER_URI = '';
     }
 
-    /**
-     * Get module holder folder name.
-     * @return string /document/local (when exists) or /document/bitrix
-     */
-    public static function getRoot()
-    {
-        $local = $_SERVER['DOCUMENT_ROOT'] . '/local';
-        if (false !== strpos(__DIR__, 'local' . DIRECTORY_SEPARATOR . 'modules') && is_dir($local)) {
-            return $local;
-        }
-    }
-
     function InstallDB()
     {
     }
@@ -57,17 +45,15 @@ class boilerplate_module_menupage extends CModule
 
     function DoInstall()
     {
-        global $APPLICATION;
-
-        if (!CheckVersion(ModuleManager::getVersion('main'), '14.00.00')) {
-            $APPLICATION->ThrowException('Версия главного модуля ниже 14. Не поддерживается технология D7, необходимая модулю. Пожалуйста обновите систему.');
+        if (!CheckVersion(Main\ModuleManager::getVersion('main'), '14.00.00')) {
+            Main\Context::getApplication()->ThrowException('Версия главного модуля ниже 14. Не поддерживается технология D7, необходимая модулю. Пожалуйста обновите систему.');
         }
 
         $this->InstallDB();
         $this->InstallEvents();
         $this->InstallFiles();
 
-        ModuleManager::RegisterModule($this->MODULE_ID);
+        Main\ModuleManager::RegisterModule($this->MODULE_ID);
     }
 
     function UnInstallDB()
@@ -90,5 +76,17 @@ class boilerplate_module_menupage extends CModule
         $this->UnInstallFiles();
 
         UnRegisterModule($this->MODULE_ID);
+    }
+
+    /**
+     * Get module holder folder name.
+     * @return string /document/local (when exists) or /document/bitrix
+     */
+    public static function getRoot()
+    {
+        $local = $_SERVER['DOCUMENT_ROOT'] . '/local';
+        if (false !== strpos(__DIR__, 'local' . DIRECTORY_SEPARATOR . 'modules') && is_dir($local)) {
+            return $local;
+        }
     }
 }
