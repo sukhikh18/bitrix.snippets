@@ -7,7 +7,7 @@ use Bitrix\Iblock;
 
 class NewsService
 {
-    private static function getCatalogItems($filter = [])
+    private static function getNewsItems($filter = [])
     {
         Main\Loader::includeModule('iblock');
 
@@ -23,7 +23,7 @@ class NewsService
 
     public static function list(array $_query, int $start, \CRestServer $server)
     {
-        return static::getCatalogItems();
+        return static::getNewsItems();
     }
 
     public static function get(array $_query, int $start, \CRestServer $server)
@@ -34,6 +34,6 @@ class NewsService
             throw new Main\ArgumentTypeException('Не верно введен ID элемента', 'ID');
         }
 
-        return static::getCatalogItems(['ID' => intval($query['ID'])]);
+        return static::getNewsItems(['ID' => intval($query['ID'])]);
     }
 }

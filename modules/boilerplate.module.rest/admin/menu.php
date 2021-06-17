@@ -7,6 +7,6 @@ return [
     "sort" => 100,
     "text" => 'Вебхуки',
     "title" => 'Настройка вебхуков сайта',
-    "url" => 'rest/',
+    "url" => '/api/',
     "items_id" => "rest_settings",
 ];

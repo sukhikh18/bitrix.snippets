@@ -22,9 +22,4 @@ class Service extends \IRestService
 
         return $scopes;
     }
-
-    public static function OnRestServiceBuildDescription()
-    {
-        return [self::SCOPE => NewsService::getDescription()];
-    }
 }

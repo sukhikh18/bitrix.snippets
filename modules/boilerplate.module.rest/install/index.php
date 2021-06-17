@@ -54,6 +54,17 @@ class boilerplate_module_rest extends CModule
         $this->InstallEvents();
         $this->InstallFiles();
 
+        Main\UrlRewriter::add(
+            SITE_ID,
+            [
+                'CONDITION' => '#^/api/#',
+                'RULE' => '',
+                'ID' => 'bitrix:rest.hook',
+                'PATH' => static::getRoot() . '/modules/' . $this->MODULE_ID . '/admin/rest.php',
+                'SORT' => 100,
+            ]
+        );
+
         Main\ModuleManager::RegisterModule($this->MODULE_ID);
     }
 
@@ -83,18 +94,21 @@ class boilerplate_module_rest extends CModule
         $this->UnInstallEvents();
         $this->UnInstallFiles();
 
+        Main\UrlRewriter::delete(
+            SITE_ID,
+            ["CONDITION" => '#^/api/#']
+        );
+
         Main\ModuleManager::UnRegisterModule($this->MODULE_ID);
     }
 
     /**
      * Get module holder folder name.
-     * @return string /document/local (when exists) or /document/bitrix
+     * @return string /local (when exists) or /bitrix
      */
     public static function getRoot()
     {
-        $local = $_SERVER['DOCUMENT_ROOT'] . '/local';
-        if (false !== strpos(__DIR__, 'local' . DIRECTORY_SEPARATOR . 'modules') && is_dir($local)) {
-            return $local;
-        }
+        return in_array('local', explode(DIRECTORY_SEPARATOR, __DIR__)) ?
+            '/local' : BX_ROOT;
     }
 }
