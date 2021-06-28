@@ -1,5 +1,4 @@
-/*
-!.gitignore
-!/modules
-!/components
-!/templates
+/local/*
+!/local/modules
+!/local/components
+!/local/templates
