@@ -1,4 +1,5 @@
-<?
+<?php
+
 $MESS["AUTH_REGISTER"] = "Registration";
 $MESS["REGISTER_CAPTCHA_TITLE"] = "Spam bot protection (CAPTCHA)";
 $MESS["REGISTER_CAPTCHA_PROMT"] = "CAPTCHA image characters";
@@ -57,4 +58,3 @@ $MESS["main_profile_time_zones_zones"] = "Time Zone:";
 $MESS["AUTH_SECURE_NOTE"] = "The password will be encrypted before it is sent. This will prevent the password from appearing in open form over data transmission channels.";
 $MESS["AUTH_NONSECURE_NOTE"] = "The password will be sent in open form. Enable JavaScript in your web browser to enable password encryption.";
 $MESS["REGISTER_FIELD_TITLE"] = "Salutation";
-?>

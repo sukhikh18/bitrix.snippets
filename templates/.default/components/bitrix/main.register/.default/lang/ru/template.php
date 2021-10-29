@@ -1,4 +1,5 @@
-<?
+<?php
+
 $MESS["AUTH_REGISTER"] = "Регистрация";
 $MESS["REGISTER_CAPTCHA_TITLE"] = "Защита от автоматической регистрации";
 $MESS["REGISTER_CAPTCHA_PROMT"] = "Введите слово на картинке";
@@ -7,11 +8,14 @@ $MESS["USER_DONT_KNOW"] = "(неизвестно)";
 $MESS["USER_MALE"] = "Мужской";
 $MESS["USER_FEMALE"] = "Женский";
 $MESS["REGISTER_FIELD_LOGIN"] = "Логин (мин. 3 символа)";
-$MESS["REGISTER_FIELD_EMAIL"] = "Адрес e-mail";
+$MESS["REGISTER_FIELD_LOGIN_LABEL"] = 'Введите ваш новый логин';
+$MESS["REGISTER_FIELD_EMAIL"] = "Адрес электронной почты";
+$MESS["REGISTER_FIELD_EMAIL_LABEL"] = "Введите ваш Email";
 $MESS["REGISTER_FIELD_PASSWORD"] = "Пароль";
 $MESS["REGISTER_FIELD_CONFIRM_PASSWORD"] = "Подтверждение пароля";
 $MESS["REGISTER_FIELD_TITLE"] = "Обращение";
 $MESS["REGISTER_FIELD_NAME"] = "Имя";
+$MESS["REGISTER_FIELD_NAME_LABEL"] = "Введите ваше имя";
 $MESS["REGISTER_FIELD_SECOND_NAME"] = "Отчество";
 $MESS["REGISTER_FIELD_LAST_NAME"] = "Фамилия";
 $MESS["REGISTER_FIELD_AUTO_TIME_ZONE"] = "Часовой пояс";
@@ -22,6 +26,7 @@ $MESS["REGISTER_FIELD_PERSONAL_GENDER"] = "Пол";
 $MESS["REGISTER_FIELD_PERSONAL_BIRTHDAY"] = "Дата рождения";
 $MESS["REGISTER_FIELD_PERSONAL_PHOTO"] = "Фотография";
 $MESS["REGISTER_FIELD_PERSONAL_PHONE"] = "Телефон";
+$MESS["REGISTER_FIELD_PERSONAL_PHONE_LABEL"] = "Введите ваш номер телефона";
 $MESS["REGISTER_FIELD_PERSONAL_FAX"] = "Факс";
 $MESS["REGISTER_FIELD_PERSONAL_MOBILE"] = "Мобильный";
 $MESS["REGISTER_FIELD_PERSONAL_PAGER"] = "Пейджер";
@@ -57,4 +62,3 @@ $MESS["main_profile_time_zones_auto_no"] = "Нет, выбрать из спис
 $MESS["main_profile_time_zones_zones"] = "Часовой пояс:";
 $MESS["AUTH_SECURE_NOTE"] = "Перед отправкой формы пароль будет зашифрован в браузере. Это позволит избежать передачи пароля в открытом виде.";
 $MESS["AUTH_NONSECURE_NOTE"] = "Пароль будет отправлен в открытом виде. Включите JavaScript в браузере, чтобы зашифровать пароль перед отправкой.";
-?>

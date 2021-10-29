@@ -7,7 +7,8 @@
  * @var CBitrixComponent $component
  */
 
-global $APPLICATION, $USER;
+$this->getComponent()->SetResultCacheKeys(['ERRORS']);
 
 // Sort fields by params.
-$arResult["SHOW_FIELDS"] = array_merge($arParams['SHOW_FIELDS'], array_diff($arResult["SHOW_FIELDS"], $arParams['SHOW_FIELDS']));
+$arResult["SHOW_FIELDS"] = array_unique(array_merge($arParams['SHOW_FIELDS'], $arResult["SHOW_FIELDS"],
+    array_keys($arResult["USER_PROPERTIES"]["DATA"])));
