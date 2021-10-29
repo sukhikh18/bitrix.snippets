@@ -1,4 +1,5 @@
-<?
+<?php
+
 $MESS["AUTH_LOGIN_BUTTON"] = "Login";
 $MESS["AUTH_LOGIN"] = "Login";
 $MESS["AUTH_PASSWORD"] = "Password";
@@ -21,4 +22,3 @@ $MESS["auth_form_comp_otp"] = "One-time password:";
 $MESS["auth_form_comp_otp_remember_title"] = "Remember one-time password on this computer";
 $MESS["auth_form_comp_otp_remember"] = "Remember password";
 $MESS["auth_form_comp_auth"] = "Log in";
-?>
