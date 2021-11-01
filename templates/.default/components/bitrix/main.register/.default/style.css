@@ -5,3 +5,19 @@
 .form-main-register .form-group-label {
   margin-bottom: 0.25rem;
 }
+
+.form-main-register .form-errors {
+  color: #F00;
+  margin-bottom: 1rem;
+}
+
+.form-main-register .captcha-field-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.form-main-register .captcha-field-label img {
+  cursor: pointer;
+}

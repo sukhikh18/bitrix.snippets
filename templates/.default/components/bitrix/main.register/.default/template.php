@@ -17,7 +17,7 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
         <input type="hidden" name="backurl" value="<?= $arResult['BACKURL'] ?>"/>
     <?php endif ?>
 
-    <div class="form-errors" data-entity="error-messages">
+    <div class="form-errors">
         <?php
 
         if (count($arResult["ERRORS"]) > 0) {
@@ -42,7 +42,7 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
         switch ($FIELD) {
         case 'LOGIN':
             ?>
-            <div class="form-group mb-3 form-group--login">
+            <div class="form-group form-group--login">
                 <label class="form-group-label"><?= GetMessage("REGISTER_FIELD_LOGIN_LABEL") ?><?= $isRequired ? REQUIRED_STAR : '' ?></label>
                 <input class="form-control form-group-input" type="text"
                        placeholder="<?= GetMessage("REGISTER_FIELD_LOGIN") ?>" name="REGISTER[LOGIN]"
@@ -54,7 +54,7 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
 
         case 'NAME':
         ?>
-            <div class="form-group mb-3 form-group--name">
+            <div class="form-group form-group--name">
                 <label class="form-group-label"><?= GetMessage("REGISTER_FIELD_NAME_LABEL") ?><?= $isRequired ? REQUIRED_STAR : '' ?></label>
                 <input class="form-control form-group-input" type="text"
                        placeholder="<?= GetMessage("REGISTER_FIELD_NAME") ?>" name="REGISTER[NAME]"
@@ -66,7 +66,7 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
 
         case 'PERSONAL_PHONE':
         ?>
-            <div class="form-group mb-3 form-group--personal_phone">
+            <div class="form-group form-group--personal_phone">
                 <label class="form-group-label"><?= GetMessage("REGISTER_FIELD_PERSONAL_PHONE_LABEL") ?><?= $isRequired ? REQUIRED_STAR : '' ?></label>
                 <input class="form-control form-group-input" type="tel"
                        placeholder="<?= GetMessage("REGISTER_FIELD_PERSONAL_PHONE") ?>" name="REGISTER[PERSONAL_PHONE]"
@@ -78,7 +78,7 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
 
         case 'EMAIL':
         ?>
-            <div class="form-group mb-3 form-group--email">
+            <div class="form-group form-group--email">
                 <label class="form-group-label"><?= GetMessage("REGISTER_FIELD_EMAIL_LABEL") ?><?= $isRequired ? REQUIRED_STAR : '' ?></label>
                 <input class="form-control form-group-input" type="text"
                        placeholder="<?= GetMessage("REGISTER_FIELD_EMAIL") ?>" name="REGISTER[EMAIL]"
@@ -90,7 +90,7 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
 
         case 'PASSWORD':
         ?>
-            <div class="form-group mb-3 form-group--password">
+            <div class="form-group form-group--password">
                 <label class="form-group-label">Введите ваш новый пароль<?= $isRequired ? REQUIRED_STAR : '' ?></label>
                 <input class="form-control form-group-input" type="password" placeholder="Пароль"
                        name="REGISTER[PASSWORD]"
@@ -113,7 +113,7 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
                     if (typeof window.cloneValue === 'function') {
                         window.cloneValue('[name="REGISTER[PASSWORD]"]', '[name="REGISTER[CONFIRM_PASSWORD]"]')
                     }
-                };
+                });
             </script>
         <?php
         }
@@ -121,13 +121,13 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
 
         default:
         if ($arUserField = ($arResult["USER_PROPERTIES"]["DATA"][$FIELD] ?? false)): ?>
-            <div class="form-group mb-3 form-group--<?= mb_strtolower($FIELD) ?>">
+            <div class="form-group form-group--<?= mb_strtolower($FIELD) ?>">
                 <label class="form-group-label"><?= $arUserField['EDIT_FORM_LABEL'] ?><?= $isRequired ? REQUIRED_STAR : '' ?></label>
                 <input class="form-control form-group-input" type="text" name="<?= $FIELD ?>"
                        value="<?= $arResult["VALUES"][$FIELD] ?>"<?= $isRequired ? ' required' : '' ?> />
             </div>
         <?php else: ?>
-            <div class="form-group mb-3 form-group--<?= mb_strtolower($FIELD) ?>">
+            <div class="form-group form-group--<?= mb_strtolower($FIELD) ?>">
                 <div class="form-group-label"><?= GetMessage("REGISTER_FIELD_{$FIELD}") ?><?= $isRequired ? REQUIRED_STAR : '' ?></div>
                 <input class="form-control form-group-input" type="text" name="REGISTER[<?= $FIELD ?>]"
                        value="<?= $arResult["VALUES"][$FIELD] ?>"<?= $isRequired ? ' required' : '' ?> />
@@ -137,17 +137,9 @@ if (!defined('REQUIRED_STAR')) define('REQUIRED_STAR', '<span class="text-danger
         }
     }
 
-    ?>
-    <?php if ('Y' == $arResult["USE_CAPTCHA"]) : ?>
-        <div class="form-group mb-3 form-group--captcha">
-            <label class="d-flex align-items-center justify-content-between mb-1"><?= GetMessage("REGISTER_CAPTCHA_PROMT") ?>
-                :
-                <img src="/bitrix/tools/captcha.php?captcha_sid=<?= $arResult["CAPTCHA_CODE"] ?>"
-                     width="180" height="40" alt="CAPTCHA"/>
-            </label>
-            <input type="hidden" name="captcha_sid" value="<?= $arResult["CAPTCHA_CODE"] ?>"/>
-            <input type="text" name="captcha_word" maxlength="50" value="" class="form-control form-group-input"
-                   autocomplete="off"/>
+    if ('Y' == $arResult["USE_CAPTCHA"]): ?>
+        <div class="form-group form-group--captcha" data-role="captcha-field">
+            <?= $arResult['CAPTCHA_HTML'] ?>
         </div>
     <?php endif; ?>
 
