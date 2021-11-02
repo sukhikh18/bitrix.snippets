@@ -1,17 +1,19 @@
 <?php
 
 $MESS["AUTH_REGISTER"] = "Registration";
-$MESS["REGISTER_CAPTCHA_TITLE"] = "Spam bot protection (CAPTCHA)";
-$MESS["REGISTER_CAPTCHA_PROMT"] = "CAPTCHA image characters";
 $MESS["AUTH_REQ"] = "Required fields.";
 $MESS["USER_DONT_KNOW"] = "(unknown)";
 $MESS["USER_MALE"] = "Male";
 $MESS["USER_FEMALE"] = "Female";
 $MESS["REGISTER_FIELD_LOGIN"] = "Login (min. 3 characters)";
+$MESS["REGISTER_FIELD_LOGIN_LABEL"] = "Insert your new login";
 $MESS["REGISTER_FIELD_EMAIL"] = "E-mail";
+$MESS["REGISTER_FIELD_EMAIL_LABEL"] = "Insert your email";
 $MESS["REGISTER_FIELD_PASSWORD"] = "Password";
 $MESS["REGISTER_FIELD_CONFIRM_PASSWORD"] = "Password confirmation";
+$MESS["REGISTER_FIELD_TITLE"] = "Salutation";
 $MESS["REGISTER_FIELD_NAME"] = "Name";
+$MESS["REGISTER_FIELD_NAME_LABEL"] = "Insert your name";
 $MESS["REGISTER_FIELD_SECOND_NAME"] = "Middle Name";
 $MESS["REGISTER_FIELD_LAST_NAME"] = "Last Name";
 $MESS["REGISTER_FIELD_AUTO_TIME_ZONE"] = "Time Zone";
@@ -22,6 +24,7 @@ $MESS["REGISTER_FIELD_PERSONAL_GENDER"] = "Gender";
 $MESS["REGISTER_FIELD_PERSONAL_BIRTHDAY"] = "Birthday";
 $MESS["REGISTER_FIELD_PERSONAL_PHOTO"] = "Photo";
 $MESS["REGISTER_FIELD_PERSONAL_PHONE"] = "Phone";
+$MESS["REGISTER_FIELD_PERSONAL_PHONE_LABEL"] = "Insert your personal phone";
 $MESS["REGISTER_FIELD_PERSONAL_FAX"] = "Fax";
 $MESS["REGISTER_FIELD_PERSONAL_MOBILE"] = "Mobile";
 $MESS["REGISTER_FIELD_PERSONAL_PAGER"] = "Pager";
@@ -57,4 +60,3 @@ $MESS["main_profile_time_zones_auto_no"] = "No, select from list";
 $MESS["main_profile_time_zones_zones"] = "Time Zone:";
 $MESS["AUTH_SECURE_NOTE"] = "The password will be encrypted before it is sent. This will prevent the password from appearing in open form over data transmission channels.";
 $MESS["AUTH_NONSECURE_NOTE"] = "The password will be sent in open form. Enable JavaScript in your web browser to enable password encryption.";
-$MESS["REGISTER_FIELD_TITLE"] = "Salutation";

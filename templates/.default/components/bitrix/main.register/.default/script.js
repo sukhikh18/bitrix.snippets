@@ -6,7 +6,8 @@ var __webpack_exports__ = {};
 document.addEventListener('DOMContentLoaded', function () {
   var registerFormEl = document.querySelector('.form-main-register');
   if (!registerFormEl) return;
-  var errors = registerFormEl.querySelector('[data-role="error-messages"]'); //
+  var errors = registerFormEl.querySelector('[data-role="error-messages"]');
+  var success = registerFormEl.querySelector('[data-role="success-messages"]'); //
   // Captcha
   //
 
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       };
 
-      xhr.open('GET', './?action=getCaptcha');
+      xhr.open('GET', './?action=getCaptcha&ajax=1');
       xhr.send();
     });
   } //
@@ -42,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isFormProcessed) return false;
 
     var clearErrors = function clearErrors() {
-      if (!errors) errors.innerHTML = '';
+      if (errors) errors.innerHTML = '';
     };
 
     var showErrors = function showErrors(errorMsgs) {
@@ -57,6 +58,12 @@ document.addEventListener('DOMContentLoaded', function () {
       return console.log('@todo preloader stop');
     };
 
+    var getFormData = function getFormData(form) {
+      var data = new FormData(form);
+      data.append('ajax', 1);
+      return data;
+    };
+
     var xhr = new XMLHttpRequest();
     beforeSubmit();
     isFormProcessed = true;
@@ -67,13 +74,20 @@ document.addEventListener('DOMContentLoaded', function () {
         var response = JSON.parse(xhr.response);
 
         if (200 === xhr.status && 'Y' === response.SUCCESS) {
-          var successEl = registerFormEl.querySelector('.form-success');
-          if (successEl) successEl.innerHTML = response.SUCCESS_MESSAGE;
+          if (success) success.innerHTML = response.SUCCESS_MESSAGE;
+          var fields = registerFormEl.querySelector('.form-fields');
+          if (fields) fields.innerHTML = '';
+          setTimeout(function () {
+            if (response.BACKURL) {
+              window.location.href = response.BACKURL;
+            } else if (response.AUTH) {
+              document.location.reload();
+            }
+          }, 4000);
         } else {
           showErrors(response.ERRORS);
         }
 
-        console.log(response);
         isFormProcessed = false;
         afterSubmit();
         if (captchaEl) captchaEl.innerHTML = response.CAPTCHA_HTML;
@@ -81,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     xhr.open('POST', e.target.getAttribute('action') || './');
-    xhr.send(new FormData(e.target));
+    xhr.send(getFormData(e.target));
   }); //
   // Acept policy.
   //

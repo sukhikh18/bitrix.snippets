@@ -1,8 +1,6 @@
 <?php
 
 $MESS["AUTH_REGISTER"] = "Регистрация";
-$MESS["REGISTER_CAPTCHA_TITLE"] = "Защита от автоматической регистрации";
-$MESS["REGISTER_CAPTCHA_PROMT"] = "Введите слово на картинке";
 $MESS["AUTH_REQ"] = "Поля, обязательные для заполнения.";
 $MESS["USER_DONT_KNOW"] = "(неизвестно)";
 $MESS["USER_MALE"] = "Мужской";
@@ -12,7 +10,9 @@ $MESS["REGISTER_FIELD_LOGIN_LABEL"] = 'Введите ваш новый логи
 $MESS["REGISTER_FIELD_EMAIL"] = "Адрес электронной почты";
 $MESS["REGISTER_FIELD_EMAIL_LABEL"] = "Введите ваш Email";
 $MESS["REGISTER_FIELD_PASSWORD"] = "Пароль";
+$MESS["REGISTER_FIELD_PASSWORD_LABEL"] = "Введите ваш новый пароль";
 $MESS["REGISTER_FIELD_CONFIRM_PASSWORD"] = "Подтверждение пароля";
+$MESS["REGISTER_FIELD_CONFIRM_PASSWORD_LABEL"] = "Введите новый пароль еще раз";
 $MESS["REGISTER_FIELD_TITLE"] = "Обращение";
 $MESS["REGISTER_FIELD_NAME"] = "Имя";
 $MESS["REGISTER_FIELD_NAME_LABEL"] = "Введите ваше имя";
@@ -53,7 +53,7 @@ $MESS["REGISTER_FIELD_WORK_COUNTRY"] = "Страна (работа)";
 $MESS["REGISTER_FIELD_WORK_PROFILE"] = "Направления деятельности";
 $MESS["REGISTER_FIELD_WORK_LOGO"] = "Логотип компании";
 $MESS["REGISTER_FIELD_WORK_NOTES"] = "Дополнительные заметки (работа)";
-$MESS["REGISTER_EMAIL_WILL_BE_SENT"] = "На указанный в форме e-mail придет запрос на подтверждение регистрации.";
+$MESS["REGISTER_EMAIL_WILL_BE_SENT"] = "На указанный вами e-mail придет запрос на подтверждение регистрации.";
 $MESS["MAIN_REGISTER_AUTH"] = "Вы зарегистрированы на сервере и успешно авторизованы.";
 $MESS["main_profile_time_zones_auto"] = "Автоматически определять часовой пояс:";
 $MESS["main_profile_time_zones_auto_def"] = "(по умолчанию)";

@@ -7,28 +7,23 @@
  * @var CBitrixComponent $component
  */
 
-$this->getComponent()->SetResultCacheKeys(['ERRORS', 'CAPTCHA_HTML']);
+$this->getComponent()->SetResultCacheKeys(['ERRORS', 'CAPTCHA_HTML', 'USE_EMAIL_CONFIRMATION']);
 
 // Sort fields by params.
 $arResult["SHOW_FIELDS"] = array_unique(array_merge($arParams['SHOW_FIELDS'], $arResult["SHOW_FIELDS"] ?: [],
     array_keys($arResult["USER_PROPERTIES"]["DATA"] ?: [])));
 
+$MESS['REGISTER_CAPTCHA_PROMT'] = GetMessage('REGISTER_CAPTCHA_PROMT');
+
 if ('Y' == $arResult["USE_CAPTCHA"]) {
-    $captchaHtml = <<<HTML
+    $arResult['CAPTCHA_HTML'] = <<<HTML
         <label class="captcha-field-label">
-            {{ REGISTER_CAPTCHA_PROMT }}
-            <img src="/bitrix/tools/captcha.php?captcha_sid={{ CAPTCHA_CODE }}"
+            {$MESS['REGISTER_CAPTCHA_PROMT']}
+            <img src="/bitrix/tools/captcha.php?captcha_sid={$arResult["CAPTCHA_CODE"]}"
                  width="180" height="40" alt="CAPTCHA" />
         </label>
-        <input type="hidden" name="captcha_sid" value="{{ CAPTCHA_CODE }}"/>
+        <input type="hidden" name="captcha_sid" value="{$arResult["CAPTCHA_CODE"]}"/>
         <input type="text" name="captcha_word" maxlength="50" value="" class="form-control form-group-input"
                autocomplete="off"/>
     HTML;
-
-    $captchaReplacements = [
-        '{{ REGISTER_CAPTCHA_PROMT }}' => GetMessage("REGISTER_CAPTCHA_PROMT"),
-        '{{ CAPTCHA_CODE }}' => $arResult["CAPTCHA_CODE"],
-    ];
-
-    $arResult['CAPTCHA_HTML'] = str_replace(array_keys($captchaReplacements), array_values($captchaReplacements), $captchaHtml);
 }
